@@ -68,6 +68,7 @@ Contoh output:
 ```
 Prediksi Status Mahasiswa: Graduate
 ```
+Deployment dapat diakses pada link berikut: https://jaya-jaya-students-status.streamlit.app/
 
 ## Conclusion
 - Mahasiswa dengan banyak mata kuliah yang **tidak lulus** cenderung dropout.  
