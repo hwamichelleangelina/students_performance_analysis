@@ -1,60 +1,79 @@
-import numpy as np
+import streamlit as st
 import pandas as pd
+import numpy as np
 import joblib
 from tensorflow.keras.models import load_model
 
-# load models dan scaler
-xgb_model = joblib.load('xgb_model.pkl')
-rf_model = joblib.load('rf_model.pkl')
-scaler = joblib.load('scaler.pkl')
-label_encoders = joblib.load('label_encoders.pkl')
-dl_model = load_model('dl_model.h5')
+# Load model dan alat bantu
+xgb_model = joblib.load("xgb_model.pkl")
+rf_model = joblib.load("rf_model.pkl")
+scaler = joblib.load("scaler.pkl")
+label_encoders = joblib.load("label_encoders.pkl")
+dl_model = load_model("dl_model.h5")
 
-def input_data():
-    print("Masukkan data mahasiswa:")
+# Judul
+st.title("Prediksi Status Mahasiswa - Jaya Jaya Institut")
+
+# Input Form
+with st.form("student_form"):
+    st.subheader("Masukkan Data Mahasiswa")
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        
+        marital_status = int(input("Marital status (1: single, 2: married, 3: widower, 4: divorced, 5: facto union, 6: legally separated): "))
+        application_mode = int(input("Application mode (1-1st phase, 39-Over 23 years old, 42-Transfer, etc.): "))
+        application_order = int(input("Application order (0 - first choice, 9 - last choice): "))
+        course = int(input("Course (33 - Biofuel Production Technologies, 171 - Animation and Multimedia Design, etc.): "))
+        daytime_evening_attendance = int(input("Daytime/evening attendance (1 – daytime, 0 – evening): "))
+        previous_qualification = int(input("Previous qualification (1-Secondary education, 2-Bachelor's degree, etc.): "))
+        
+        previous_qualification_grade = float(input("Previous qualification grade (0 to 200): "))
+        admission_grade = float(input("Admission grade (0 to 200): "))
+        
+        nationality = int(input("Nationality (1-Portuguese, 2-German, etc.): "))
+        mothers_qualification = int(input("Mother's qualification (1-Secondary education, 2-Bachelor's degree, etc.): "))
+        fathers_qualification = int(input("Father's qualification (1-Secondary education, 2-Bachelor's degree, etc.): "))
+        mothers_occupation = int(input("Mother's occupation (0-Student, 1-Executive, etc.): "))
+        fathers_occupation = int(input("Father's occupation (0-Student, 1-Executive, etc.): "))
+
+    with col2:
+        displaced = int(input("Displaced (1-yes, 0-no): "))
+        educational_special_needs = int(input("Educational special needs (1-yes, 0-no): "))
+        debtor = int(input("Debtor (1-yes, 0-no): "))
+        tuition_fees_up_to_date = int(input("Tuition fees up to date (1-yes, 0-no): "))
+        gender = int(input("Gender (1-male, 0-female): "))
+        scholarship_holder = int(input("Scholarship holder (1-yes, 0-no): "))
+        age_at_enrollment = int(input("Age at enrollment: "))
+        international = int(input("International (1-yes, 0-no): "))
     
-    marital_status = int(input("Marital status (1: single, 2: married, 3: widower, 4: divorced, 5: facto union, 6: legally separated): "))
-    application_mode = int(input("Application mode (1-1st phase, 39-Over 23 years old, 42-Transfer, etc.): "))
-    application_order = int(input("Application order (0 - first choice, 9 - last choice): "))
-    course = int(input("Course (33 - Biofuel Production Technologies, 171 - Animation and Multimedia Design, etc.): "))
-    daytime_evening_attendance = int(input("Daytime/evening attendance (1 – daytime, 0 – evening): "))
-    previous_qualification = int(input("Previous qualification (1-Secondary education, 2-Bachelor's degree, etc.): "))
+        curricular_units_1st_sem_credited = int(input("Curricular units 1st sem (credited): "))
+        curricular_units_1st_sem_enrolled = int(input("Curricular units 1st sem (enrolled): "))
+        curricular_units_1st_sem_evaluations = int(input("Curricular units 1st sem (evaluations): "))
+        curricular_units_1st_sem_approved = int(input("Curricular units 1st sem (approved): "))
+        curricular_units_1st_sem_grade = float(input("Curricular units 1st sem (grade): "))
+        curricular_units_1st_sem_without_evaluations = int(input("Curricular units 1st sem (without evaluations): "))
     
-    previous_qualification_grade = float(input("Previous qualification grade (0 to 200): "))
-    admission_grade = float(input("Admission grade (0 to 200): "))
+        curricular_units_2nd_sem_credited = int(input("Curricular units 2nd sem (credited): "))
+        curricular_units_2nd_sem_enrolled = int(input("Curricular units 2nd sem (enrolled): "))
+        curricular_units_2nd_sem_evaluations = int(input("Curricular units 2nd sem (evaluations): "))
+        curricular_units_2nd_sem_approved = int(input("Curricular units 2nd sem (approved): "))
+        curricular_units_2nd_sem_grade = float(input("Curricular units 2nd sem (grade): "))
+        curricular_units_2nd_sem_without_evaluations = int(input("Curricular units 2nd sem (without evaluations): "))
     
-    nationality = int(input("Nationality (1-Portuguese, 2-German, etc.): "))
-    mothers_qualification = int(input("Mother's qualification (1-Secondary education, 2-Bachelor's degree, etc.): "))
-    fathers_qualification = int(input("Father's qualification (1-Secondary education, 2-Bachelor's degree, etc.): "))
-    mothers_occupation = int(input("Mother's occupation (0-Student, 1-Executive, etc.): "))
-    fathers_occupation = int(input("Father's occupation (0-Student, 1-Executive, etc.): "))
-    displaced = int(input("Displaced (1-yes, 0-no): "))
-    educational_special_needs = int(input("Educational special needs (1-yes, 0-no): "))
-    debtor = int(input("Debtor (1-yes, 0-no): "))
-    tuition_fees_up_to_date = int(input("Tuition fees up to date (1-yes, 0-no): "))
-    gender = int(input("Gender (1-male, 0-female): "))
-    scholarship_holder = int(input("Scholarship holder (1-yes, 0-no): "))
-    age_at_enrollment = int(input("Age at enrollment: "))
-    international = int(input("International (1-yes, 0-no): "))
+        unemployment_rate = float(input("Unemployment rate: "))
+        inflation_rate = float(input("Inflation rate: "))
+        gdp = float(input("GDP: "))
 
-    curricular_units_1st_sem_credited = int(input("Curricular units 1st sem (credited): "))
-    curricular_units_1st_sem_enrolled = int(input("Curricular units 1st sem (enrolled): "))
-    curricular_units_1st_sem_evaluations = int(input("Curricular units 1st sem (evaluations): "))
-    curricular_units_1st_sem_approved = int(input("Curricular units 1st sem (approved): "))
-    curricular_units_1st_sem_grade = float(input("Curricular units 1st sem (grade): "))
-    curricular_units_1st_sem_without_evaluations = int(input("Curricular units 1st sem (without evaluations): "))
+    submitted = st.form_submit_button("Prediksi Status Mahasiswa")
 
-    curricular_units_2nd_sem_credited = int(input("Curricular units 2nd sem (credited): "))
-    curricular_units_2nd_sem_enrolled = int(input("Curricular units 2nd sem (enrolled): "))
-    curricular_units_2nd_sem_evaluations = int(input("Curricular units 2nd sem (evaluations): "))
-    curricular_units_2nd_sem_approved = int(input("Curricular units 2nd sem (approved): "))
-    curricular_units_2nd_sem_grade = float(input("Curricular units 2nd sem (grade): "))
-    curricular_units_2nd_sem_without_evaluations = int(input("Curricular units 2nd sem (without evaluations): "))
+# Fungsi bantu
+def safe_divide(numerator, denominator):
+    return numerator / denominator if denominator != 0 else 0
 
-    unemployment_rate = float(input("Unemployment rate: "))
-    inflation_rate = float(input("Inflation rate: "))
-    gdp = float(input("GDP: "))
-
+# Proses Prediksi
+if submitted:
     data = {
         'Marital_status': marital_status,
         'Application_mode': application_mode,
@@ -63,12 +82,12 @@ def input_data():
         'Daytime_evening_attendance': daytime_evening_attendance,
         'Previous_qualification': previous_qualification,
         'Previous_qualification_grade': previous_qualification_grade,
+        'Admission_grade': admission_grade,
         'Nacionality': nationality,
         'Mothers_qualification': mothers_qualification,
         'Fathers_qualification': fathers_qualification,
         'Mothers_occupation': mothers_occupation,
         'Fathers_occupation': fathers_occupation,
-        'Admission_grade': admission_grade,
         'Displaced': displaced,
         'Educational_special_needs': educational_special_needs,
         'Debtor': debtor,
@@ -77,7 +96,6 @@ def input_data():
         'Scholarship_holder': scholarship_holder,
         'Age_at_enrollment': age_at_enrollment,
         'International': international,
-
         'Curricular_units_1st_sem_credited': curricular_units_1st_sem_credited,
         'Curricular_units_1st_sem_enrolled': curricular_units_1st_sem_enrolled,
         'Curricular_units_1st_sem_evaluations': curricular_units_1st_sem_evaluations,
@@ -94,57 +112,41 @@ def input_data():
         'Inflation_rate': inflation_rate,
         'GDP': gdp
     }
-    
-    return pd.DataFrame([data])
 
-df = input_data()
+    df = pd.DataFrame([data])
 
-def safe_divide(numerator, denominator):
-    return numerator / denominator.replace(0, np.nan)
+    # Feature engineering
+    df['pass_rate_total'] = safe_divide(
+        curricular_units_1st_sem_approved + curricular_units_2nd_sem_approved,
+        curricular_units_1st_sem_enrolled + curricular_units_2nd_sem_enrolled
+    )
+    df['avg_grade'] = (curricular_units_1st_sem_grade + curricular_units_2nd_sem_grade) / 2
+    df['grade_gap'] = admission_grade - df['avg_grade']
+    df['total_enrolled'] = curricular_units_1st_sem_enrolled + curricular_units_2nd_sem_enrolled
+    df['total_approved'] = curricular_units_1st_sem_approved + curricular_units_2nd_sem_approved
+    df['total_failed'] = df['total_enrolled'] - df['total_approved']
+    df['unit_completion_ratio'] = safe_divide(df['total_approved'], df['total_enrolled'])
+    df['financial_risk'] = (1 - tuition_fees_up_to_date) + debtor + scholarship_holder
+    df['special_case'] = displaced + educational_special_needs + international
 
-# feature engineering
-df['pass_rate_1st'] = safe_divide(df['Curricular_units_1st_sem_approved'], df['Curricular_units_1st_sem_enrolled'])
-df['pass_rate_2nd'] = safe_divide(df['Curricular_units_2nd_sem_approved'], df['Curricular_units_2nd_sem_enrolled'])
-df['pass_rate_total'] = safe_divide(
-    df['Curricular_units_1st_sem_approved'] + df['Curricular_units_2nd_sem_approved'],
-    df['Curricular_units_1st_sem_enrolled'] + df['Curricular_units_2nd_sem_enrolled']
-)
+    # Drop kolom-kolom tidak digunakan (optional)
+    drop_cols = ['pass_rate_total']
+    df.drop(columns=[col for col in drop_cols if col in df.columns], inplace=True)
 
-df['missing_eval_1st'] = safe_divide(df['Curricular_units_1st_sem_without_evaluations'], df['Curricular_units_1st_sem_enrolled'])
-df['missing_eval_2nd'] = safe_divide(df['Curricular_units_2nd_sem_without_evaluations'], df['Curricular_units_2nd_sem_enrolled'])
-df['missing_eval_total'] = safe_divide(
-    df['Curricular_units_1st_sem_without_evaluations'] + df['Curricular_units_2nd_sem_without_evaluations'],
-    df['Curricular_units_1st_sem_enrolled'] + df['Curricular_units_2nd_sem_enrolled']
-)
+    # Scaling
+    X_scaled = scaler.transform(df)
 
-df['avg_grade'] = (df['Curricular_units_1st_sem_grade'] + df['Curricular_units_2nd_sem_grade']) / 2
-df['grade_gap'] = df['Admission_grade'] - df['avg_grade']
-df['total_enrolled'] = df['Curricular_units_1st_sem_enrolled'] + df['Curricular_units_2nd_sem_enrolled']
-df['total_approved'] = df['Curricular_units_1st_sem_approved'] + df['Curricular_units_2nd_sem_approved']
-df['total_evaluations'] = df['Curricular_units_1st_sem_evaluations'] + df['Curricular_units_2nd_sem_evaluations']
-df['total_failed'] = df['total_enrolled'] - df['total_approved']
-df['unit_completion_ratio'] = safe_divide(df['total_approved'], df['total_enrolled'])
-df['financial_risk'] = (1 - df['Tuition_fees_up_to_date']) + df['Debtor'] + df['Scholarship_holder']
-df['special_case'] = df['Displaced'] + df['Educational_special_needs'] + df['International']
+    # Predict dari 3 model
+    proba_rf = rf_model.predict_proba(X_scaled)
+    proba_xgb = xgb_model.predict_proba(X_scaled)
+    proba_dl = dl_model.predict(X_scaled)
 
-df.fillna(0, inplace=True)
-X_input = df.drop(['missing_eval_1st', 'missing_eval_2nd', 'pass_rate_1st', 'pass_rate_2nd'], axis=1, errors='ignore')
+    # Voting ensemble (ambil rata-rata probabilitas)
+    final_proba = (proba_rf + proba_xgb + proba_dl) / 3
+    final_pred = np.argmax(final_proba, axis=1)
 
-# scaling
-X_scaled = scaler.transform(X_input)
+    # Inverse label
+    label_encoder_status = label_encoders['Status']
+    predicted_label = label_encoder_status.inverse_transform(final_pred.astype(int))
 
-# predict masing-masing model
-proba_rf = rf_model.predict_proba(X_scaled)
-proba_xgb = xgb_model.predict_proba(X_scaled)
-proba_dl = dl_model.predict(X_scaled)
-
-# ensemble prediction
-X_meta = np.hstack([proba_rf, proba_xgb, proba_dl])
-final_proba = meta_model.predict_proba(X_meta)
-final_pred = np.argmax(final_proba, axis=1)
-
-# mapping label ke nama status
-label_encoder_status = label_encoders['Status']
-predicted_label = label_encoder_status.inverse_transform(final_pred.astype(int))
-
-print(f"\nPrediksi Status Mahasiswa: {predicted_label[0]}")
+    st.success(f"🎯 Prediksi Status Mahasiswa: **{predicted_label[0]}**")
