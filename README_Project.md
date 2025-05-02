@@ -51,6 +51,9 @@ Jelaskan tentang business dashboard yang telah dibuat. Jika ada, sertakan juga l
 Untuk menjalankan sistem prediksi:
 
 1. Pastikan semua file model (`.pkl` dan `.h5`) berada di direktori yang sama.
+```
+pip install streamlit
+```
 2. Jalankan `app.py`:
 
 ```
