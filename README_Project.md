@@ -28,24 +28,27 @@ Pastikan environment Python telah dilengkapi dengan library berikut:
 ```
 pip install requirements.txt
 ```
-├─── `app.py` – Aplikasi terminal
-
+```
+├─── `app.py` – Aplikasi untuk Streamlit
 ├─── `notebook.ipynb` – Notebook eksplorasi dan model training
-
 ├─── `requirements.txt` – Requirements untuk kebutuhan library
-
-├─── `xgb_model.pkl` – Model XGBoost
-
-├─── `rf_model.pkl` – Model Random Forest
-
-├─── `dl_model.h5` – Model Deep Learning (Keras)
-
-├─── `scaler.pkl` – Objek StandardScaler
-
-└─── `label_encoders.pkl` – Encoder label
+├─── model
+  ├─── `xgb_model.pkl` – Model XGBoost
+  ├─── `rf_model.pkl` – Model Random Forest
+  ├─── `dl_model.h5` – Model Deep Learning (Keras)
+  ├─── `meta_model.pkl` – Model Ensemble
+  ├─── `scaler.pkl` – Objek StandardScaler
+  ├─── `scaler_columns.pkl` – Objek StandardScaler dalam Bentuk Kolom
+  └─── `label_encoders.pkl` – Encoder label
+└─── data.csv – Dataset
+```
 
 ## Business Dashboard
-Jelaskan tentang business dashboard yang telah dibuat. Jika ada, sertakan juga link untuk mengakses dashboard tersebut.
+Dashboard yang dibuat bertujuan untuk memvisualisasikan dan memantau faktor-faktor penyebab utama dari status mahasiswa secara interaktif. Visualisasi ini mencakup:
+- Distribusi dan perbandingan status mahasiswa berdasarkan fitur penting seperti pembayaran biaya kuliah, nilai mahasiswa, dll.
+- Pemantauan demografi mahasiswa.
+- Insight berdasarkan segmentasi kelompok mahasiswa.
+- Business Dashboard: [Jaya Jaya Institute Students' Performance Analysis Dashboard](https://lookerstudio.google.com/reporting/275ca653-22b8-4fde-a66d-e35619cd6f57)
 
 ## Menjalankan Sistem Machine Learning
 Untuk menjalankan sistem prediksi:
@@ -68,7 +71,7 @@ Contoh output:
 ```
 Prediksi Status Mahasiswa: Graduate
 ```
-Deployment dapat diakses pada link berikut: [https://jaya-jaya-students-status.streamlit.app/](https://jaya-jaya-students-status.streamlit.app/)
+Deployment dapat diakses pada Streamlit Cloud berikut: [https://jaya-jaya-students-status.streamlit.app/](https://jaya-jaya-students-status.streamlit.app/)
 
 ## Conclusion
 - Mahasiswa dengan banyak mata kuliah yang **tidak lulus** cenderung dropout.  
