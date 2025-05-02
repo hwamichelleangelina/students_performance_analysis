@@ -26,11 +26,13 @@ Sumber data: [students' performance](https://github.com/dicodingacademy/dicoding
 Setup environment:
 Pastikan environment Python telah dilengkapi dengan library berikut:
 ```
-pip install pandas numpy scikit-learn xgboost tensorflow joblib
+pip install requirements.txt
 ```
 ├─── `app.py` – Aplikasi terminal
 
 ├─── `notebook.ipynb` – Notebook eksplorasi dan model training
+
+├─── `requirements.txt` – Requirements untuk kebutuhan library
 
 ├─── `xgb_model.pkl` – Model XGBoost
 
