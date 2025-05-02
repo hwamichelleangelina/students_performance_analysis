@@ -1,31 +1,67 @@
 # Proyek Akhir: Menyelesaikan Permasalahan Institusi Pendidikan
 
 ## Business Understanding
-Jelaskan latar belakang bisnis dari perushaan tersebut.
+Jaya Jaya Institut adalah institusi pendidikan tinggi yang telah berdiri sejak tahun 2000 dan telah mencetak banyak lulusan berkualitas. Namun, institusi ini menghadapi tantangan serius: tingginya angka mahasiswa yang tidak menyelesaikan pendidikan alias dropout.
+
+Masalah ini tidak hanya berdampak pada reputasi institusi, tetapi juga pada efisiensi operasional dan keberhasilan mahasiswa secara individu. Untuk itu, Jaya Jaya Institut ingin mendeteksi sedini mungkin siswa yang berisiko dropout agar dapat diberikan intervensi dan bimbingan khusus.
 
 ### Permasalahan Bisnis
-Tuliskan seluruh permasalahan bisnis yang akan diselesaikan.
+- Bagaimana memprediksi apakah seorang mahasiswa akan berhasil melanjutkan studinya atau tidak?
+- Apa saja faktor yang memengaruhi mahasiswa untuk drop out dari Jaya Jaya Institut?
+- Bagaimana menyajikan prediksi ini dalam bentuk sistem yang mudah digunakan oleh pihak kampus?
 
 ### Cakupan Proyek
-Tuliskan cakupan proyek yang akan dikerjakan.
+- Eksplorasi dan pemrosesan dataset mahasiswa untuk menentukan feature importance terhadap status mahasiswa.
+- Feature engineering untuk membuat atribut turunan yang mendukung prediksi.
+- Pelatihan dan evaluasi beberapa model machine learning (Random Forest, XGBoost, Deep Learning).
+- Ensemble modeling untuk meningkatkan akurasi prediksi.
+- Pembuatan model Machine Learning dengan Python untuk menampilkan hasil prediksi.
+- Pembuatan prototipe aplikasi dengan Streamlit.
+- Pengembangan dashboard visualisasi data.
 
 ### Persiapan
 
-Sumber data: ....
+Sumber data: [students' performance](https://github.com/dicodingacademy/dicoding_dataset/blob/main/students_performance/data.csv)
 
 Setup environment:
+Pastikan environment Python telah dilengkapi dengan library berikut:
 ```
+pip install pandas numpy scikit-learn xgboost tensorflow joblib
+```
+├─── `app.py` – Aplikasi terminal
 
-```
+├─── `notebook.ipynb` – Notebook eksplorasi dan model training
+
+├─── `xgb_model.pkl` – Model XGBoost
+
+├─── `rf_model.pkl` – Model Random Forest
+
+├─── `dl_model.h5` – Model Deep Learning (Keras)
+
+├─── `scaler.pkl` – Objek StandardScaler
+
+└─── `label_encoders.pkl` – Encoder label
 
 ## Business Dashboard
 Jelaskan tentang business dashboard yang telah dibuat. Jika ada, sertakan juga link untuk mengakses dashboard tersebut.
 
 ## Menjalankan Sistem Machine Learning
-Jelaskan cara menjalankan protoype sistem machine learning yang telah dibuat. Selain itu, sertakan juga link untuk mengakses prototype tersebut.
+Untuk menjalankan sistem prediksi:
+
+1. Pastikan semua file model (`.pkl` dan `.h5`) berada di direktori yang sama.
+2. Jalankan `app.py`:
 
 ```
+python app.py
+```
 
+3. Ikuti prompt untuk mengisi data mahasiswa.
+4. Sistem akan memproses input dan menampilkan hasil prediksi status mahasiswa.
+
+Contoh output:
+
+```
+Prediksi Status Mahasiswa: Graduate
 ```
 
 ## Conclusion
