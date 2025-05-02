@@ -34,7 +34,7 @@ pip install requirements.txt
 ├─── `requirements.txt` – Requirements untuk kebutuhan library
 ├─── model
   ├─── `xgb_model.pkl` – Model XGBoost
-  ├─── `rf_model.pkl` – Model Random Forest
+  ├─── `rf_model_compressed.pkl` – Model Random Forest
   ├─── `dl_model.h5` – Model Deep Learning (Keras)
   ├─── `meta_model.pkl` – Model Ensemble
   ├─── `scaler.pkl` – Objek StandardScaler
