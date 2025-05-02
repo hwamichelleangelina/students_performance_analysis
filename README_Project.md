@@ -50,7 +50,7 @@ Jelaskan tentang business dashboard yang telah dibuat. Jika ada, sertakan juga l
 ## Menjalankan Sistem Machine Learning
 Untuk menjalankan sistem prediksi:
 
-1. Pastikan semua file model (`.pkl` dan `.h5`) berada di direktori yang sama.
+1. Pastikan semua file model (`.pkl` dan `.h5`) berada di direktori yang sama. Pastikan juga streamlit telah terinstal.
 ```
 pip install streamlit
 ```
