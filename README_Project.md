@@ -13,6 +13,35 @@ Masalah ini tidak hanya berdampak pada reputasi institusi, tetapi juga pada efis
 ### Cakupan Proyek
 - Eksplorasi dan pemrosesan dataset mahasiswa untuk menentukan feature importance terhadap status mahasiswa.
 - Feature engineering untuk membuat atribut turunan yang mendukung prediksi.
+  * **Pass Rate Features**:
+  
+    * `pass_rate_1st`: Rasio mata kuliah semester 1 yang lulus terhadap jumlah yang diambil.
+    * `pass_rate_2nd`: Rasio mata kuliah semester 2 yang lulus terhadap jumlah yang diambil.
+    * `pass_rate_total`: Rasio total mata kuliah yang lulus (semester 1 + 2) terhadap total yang diambil.
+  
+  * **Missing Evaluation Features**:
+  
+    * `missing_eval_1st`: Proporsi mata kuliah semester 1 tanpa evaluasi terhadap jumlah yang diambil.
+    * `missing_eval_2nd`: Proporsi mata kuliah semester 2 tanpa evaluasi terhadap jumlah yang diambil.
+    * `missing_eval_total`: Proporsi total mata kuliah tanpa evaluasi (semester 1 + 2) terhadap total yang diambil.
+  
+  * **Grade Features**:
+  
+    * `avg_grade`: Rata-rata nilai dari semester 1 dan semester 2.
+    * `grade_gap`: Selisih antara nilai rata-rata masuk (admission grade) dan nilai akademik saat ini.
+  
+  * **Academic Stats Features**:
+  
+    * `total_enrolled`: Total mata kuliah yang diambil di kedua semester.
+    * `total_approved`: Total mata kuliah yang lulus di kedua semester.
+    * `total_evaluations`: Total evaluasi yang dilakukan di kedua semester.
+    * `total_failed`: Jumlah mata kuliah yang tidak lulus.
+    * `unit_completion_ratio`: Rasio kelulusan mata kuliah terhadap jumlah yang diambil.
+  
+  * **Financial & Special Case Risk Features**:
+  
+    * `financial_risk`: Indikator risiko keuangan mahasiswa berdasarkan status pembayaran, utang, dan beasiswa.
+    * `special_case`: Indikator status khusus.
 - Pelatihan dan evaluasi beberapa model machine learning (Random Forest, XGBoost, Deep Learning).
 - Ensemble modeling untuk meningkatkan akurasi prediksi.
 - Pembuatan model Machine Learning dengan Python untuk menampilkan hasil prediksi.
